@@ -1,0 +1,302 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Jardinerie//Entretien des plantes//FR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Jardinerie — Entretien des plantes
+NAME:Jardinerie — Entretien des plantes
+X-WR-TIMEZONE:Europe/Paris
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+COLOR:120,154,123
+BEGIN:VEVENT
+UID:peperomia-arrosage@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:💧 Arroser le Peperomia
+DTSTART;VALUE=DATE:20260531
+DTEND;VALUE=DATE:20260601
+RRULE:FREQ=DAILY;INTERVAL=9
+DESCRIPTION:Peperomia grimpant · Tous les 7 à 10 jours\nLaisser sécher
+  le 1er cm de terre. Craint l'excès d'eau.\n— Carnet Jardinerie
+CATEGORIES:Arrosage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:peperomia-rempotage@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🪴 Rempoter le Peperomia
+DTSTART;VALUE=DATE:20270821
+DTEND;VALUE=DATE:20270822
+RRULE:FREQ=DAILY;INTERVAL=456
+DESCRIPTION:Peperomia grimpant · Tous les 12 à 18 mois\nAu printemps\, 
+ substrat léger et drainant.\n— Carnet Jardinerie
+CATEGORIES:Rempotage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:peperomia-engrais@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🌿 Engrais Peperomia
+DTSTART;VALUE=DATE:20260606
+DTEND;VALUE=DATE:20260607
+RRULE:FREQ=DAILY;INTERVAL=15
+DESCRIPTION:Peperomia grimpant · Tous les 15 jours (printemps-été)\nEn
+ grais plantes vertes dilué. Stop en hiver.\n— Carnet Jardinerie
+CATEGORIES:Engrais
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:peperomia-surveillance@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🔎 Contrôler le Peperomia
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+RRULE:FREQ=DAILY;INTERVAL=30
+DESCRIPTION:Peperomia grimpant · Contrôle mensuel\nFeuilles molles = tr
+ op d'eau \; tiges allongées = manque de lumière.\n— Carnet Jardinerie
+CATEGORIES:Surveillance
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sansevieria-arrosage@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:💧 Arroser la Sansevieria
+DTSTART;VALUE=DATE:20260609
+DTEND;VALUE=DATE:20260610
+RRULE:FREQ=DAILY;INTERVAL=18
+DESCRIPTION:Langue de belle-mère · Tous les 14 à 21 jours\nLaisser sé
+ cher complètement. 1 fois/mois en hiver.\n— Carnet Jardinerie
+CATEGORIES:Arrosage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sansevieria-rempotage@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🪴 Rempoter la Sansevieria
+DTSTART;VALUE=DATE:20281119
+DTEND;VALUE=DATE:20281120
+RRULE:FREQ=DAILY;INTERVAL=912
+DESCRIPTION:Langue de belle-mère · Tous les 2 à 3 ans\nQuand les racin
+ es déforment le pot. Substrat cactées.\n— Carnet Jardinerie
+CATEGORIES:Rempotage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sansevieria-engrais@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🌿 Engrais Sansevieria
+DTSTART;VALUE=DATE:20260717
+DTEND;VALUE=DATE:20260718
+RRULE:FREQ=DAILY;INTERVAL=56
+DESCRIPTION:Langue de belle-mère · Toutes les 8 semaines (printemps-ét
+ é)\nEngrais cactées dilué. Aucun apport hors saison.\n— Carnet Jardi
+ nerie
+CATEGORIES:Engrais
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sansevieria-surveillance@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🔎 Contrôler la Sansevieria
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+RRULE:FREQ=DAILY;INTERVAL=30
+DESCRIPTION:Langue de belle-mère · Contrôle mensuel\nBase molle = pour
+ riture \; feuilles couchées = manque de lumière.\n— Carnet Jardinerie
+CATEGORIES:Surveillance
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:clivia-arrosage@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:💧 Arroser le Clivia
+DTSTART;VALUE=DATE:20260602
+DTEND;VALUE=DATE:20260603
+RRULE:FREQ=DAILY;INTERVAL=11
+DESCRIPTION:Clivia · Tous les 7 à 14 jours (croissance)\nRéduire forte
+ ment en hiver pour le repos / la floraison.\n— Carnet Jardinerie
+CATEGORIES:Arrosage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:clivia-rempotage@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🪴 Rempoter le Clivia
+DTSTART;VALUE=DATE:20291120
+DTEND;VALUE=DATE:20291121
+RRULE:FREQ=DAILY;INTERVAL=1278
+DESCRIPTION:Clivia · Tous les 3 à 4 ans\nFleurit mieux à l'étroit. Re
+ mpoter après floraison.\n— Carnet Jardinerie
+CATEGORIES:Rempotage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:clivia-engrais@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🌿 Engrais Clivia
+DTSTART;VALUE=DATE:20260605
+DTEND;VALUE=DATE:20260606
+RRULE:FREQ=DAILY;INTERVAL=14
+DESCRIPTION:Clivia · Toutes les 2 semaines (printemps-été)\nEngrais pl
+ antes fleuries. Stop pendant le repos hivernal.\n— Carnet Jardinerie
+CATEGORIES:Engrais
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:clivia-surveillance@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🔎 Contrôler le Clivia
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+RRULE:FREQ=DAILY;INTERVAL=30
+DESCRIPTION:Clivia · Contrôle mensuel\nPenser au repos hivernal au frai
+ s (10–12 °C) pour refleurir.\n— Carnet Jardinerie
+CATEGORIES:Surveillance
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:clusia-arrosage@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:💧 Arroser le Clusia
+DTSTART;VALUE=DATE:20260531
+DTEND;VALUE=DATE:20260601
+RRULE:FREQ=DAILY;INTERVAL=9
+DESCRIPTION:Clusia « Princess » · Tous les 7 à 10 jours\nLaisser séc
+ her les 2 premiers centimètres.\n— Carnet Jardinerie
+CATEGORIES:Arrosage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:clusia-rempotage@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🪴 Rempoter le Clusia
+DTSTART;VALUE=DATE:20280521
+DTEND;VALUE=DATE:20280522
+RRULE:FREQ=DAILY;INTERVAL=730
+DESCRIPTION:Clusia « Princess » · Tous les 2 ans\nAu printemps\, subst
+ rat drainant et riche.\n— Carnet Jardinerie
+CATEGORIES:Rempotage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:clusia-engrais@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🌿 Engrais Clusia
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+RRULE:FREQ=DAILY;INTERVAL=30
+DESCRIPTION:Clusia « Princess » · Une fois par mois (printemps-été)\
+ nEngrais plantes vertes dilué.\n— Carnet Jardinerie
+CATEGORIES:Engrais
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:clusia-surveillance@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🔎 Contrôler le Clusia
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+RRULE:FREQ=DAILY;INTERVAL=30
+DESCRIPTION:Clusia « Princess » · Contrôle mensuel\nTaches noires = e
+ xcès d'eau \; chute de feuilles = courant d'air froid.\n— Carnet Jardi
+ nerie
+CATEGORIES:Surveillance
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:coffea-arrosage@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:💧 Arroser le Caféier
+DTSTART;VALUE=DATE:20260528
+DTEND;VALUE=DATE:20260529
+RRULE:FREQ=DAILY;INTERVAL=6
+DESCRIPTION:Caféier · Tous les 5 à 7 jours\nGarder le substrat légèr
+ ement humide. Sensible au dessèchement.\n— Carnet Jardinerie
+CATEGORIES:Arrosage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:coffea-rempotage@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🪴 Rempoter le Caféier
+DTSTART;VALUE=DATE:20270821
+DTEND;VALUE=DATE:20270822
+RRULE:FREQ=DAILY;INTERVAL=456
+DESCRIPTION:Caféier · Tous les 12 à 18 mois\nAu printemps\, substrat r
+ iche\, légèrement acide et drainant.\n— Carnet Jardinerie
+CATEGORIES:Rempotage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:coffea-engrais@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🌿 Engrais Caféier
+DTSTART;VALUE=DATE:20260609
+DTEND;VALUE=DATE:20260610
+RRULE:FREQ=DAILY;INTERVAL=18
+DESCRIPTION:Caféier · Tous les 15 à 21 jours (printemps-été)\nEngrai
+ s plantes vertes dilué.\n— Carnet Jardinerie
+CATEGORIES:Engrais
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:coffea-surveillance@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🔎 Contrôler le Caféier
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+RRULE:FREQ=DAILY;INTERVAL=30
+DESCRIPTION:Caféier · Contrôle mensuel\nSurveiller l'hygrométrie et l
+ es acariens (air sec). Brumiser au besoin.\n— Carnet Jardinerie
+CATEGORIES:Surveillance
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:dracaena-arrosage@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:💧 Arroser le Dragonnier
+DTSTART;VALUE=DATE:20260603
+DTEND;VALUE=DATE:20260604
+RRULE:FREQ=DAILY;INTERVAL=12
+DESCRIPTION:Dragonnier · Tous les 10 à 14 jours\nLaisser sécher la moi
+ tié du pot. Eau non calcaire de préférence.\n— Carnet Jardinerie
+CATEGORIES:Arrosage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:dracaena-rempotage@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🪴 Rempoter le Dragonnier
+DTSTART;VALUE=DATE:20281119
+DTEND;VALUE=DATE:20281120
+RRULE:FREQ=DAILY;INTERVAL=912
+DESCRIPTION:Dragonnier · Tous les 2 à 3 ans\nAu printemps. Pot lourd po
+ ur la stabilité.\n— Carnet Jardinerie
+CATEGORIES:Rempotage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:dracaena-engrais@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🌿 Engrais Dragonnier
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+RRULE:FREQ=DAILY;INTERVAL=30
+DESCRIPTION:Dragonnier · Une fois par mois (printemps-été)\nEngrais pl
+ antes vertes dilué.\n— Carnet Jardinerie
+CATEGORIES:Engrais
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:dracaena-surveillance@jardinerie
+DTSTAMP:20260522T005118Z
+SUMMARY:🔎 Contrôler le Dragonnier
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+RRULE:FREQ=DAILY;INTERVAL=30
+DESCRIPTION:Dragonnier · Contrôle mensuel\nPointes brunes = eau calcair
+ e/fluorée ou air sec.\n— Carnet Jardinerie
+CATEGORIES:Surveillance
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

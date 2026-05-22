@@ -1,0 +1,519 @@
+/* =====================================================================
+   Jardinerie — Feuille de style
+   Style « jardinerie premium » : fond clair chaud, cartes arrondies,
+   palette vert sauge / crème / terre cuite.
+   ===================================================================== */
+
+/* ----------  Variables de thème  ---------- */
+:root {
+  /* Palette */
+  --sauge:        #8a9a7b;   /* vert sauge principal */
+  --sauge-fonce:  #6b7a5c;   /* vert sauge foncé (textes, hover) */
+  --sauge-clair:  #e8ede1;   /* vert sauge très clair (fonds doux) */
+  --creme:        #faf6ee;   /* crème (fond de page) */
+  --creme-carte:  #fffdf8;   /* crème plus clair (cartes) */
+  --terre:        #c0744a;   /* terre cuite */
+  --terre-fonce:  #a85f39;   /* terre cuite foncée */
+  --terre-clair:  #f3e2d6;   /* terre cuite très clair */
+
+  /* Texte */
+  --texte:        #3a3a32;
+  --texte-doux:   #6c6c60;
+
+  /* Surfaces & bordures */
+  --bordure:      #e7e0d3;
+  --ombre:        0 6px 24px rgba(80, 70, 50, 0.08);
+  --ombre-forte:  0 12px 32px rgba(80, 70, 50, 0.14);
+
+  /* Rayons */
+  --radius:       18px;
+  --radius-lg:    26px;
+  --radius-pill:  999px;
+
+  /* Typo */
+  --font-titre:   "Georgia", "Times New Roman", serif;
+  --font-corps:   -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Couleurs par type de tâche */
+  --c-arrosage:     #3f7fb0;
+  --c-arrosage-bg:  #e3eef6;
+  --c-rempotage:    #a85f39;
+  --c-rempotage-bg: #f3e2d6;
+  --c-engrais:      #6b8e3d;
+  --c-engrais-bg:   #e8efdb;
+  --c-surveillance: #b08a2e;
+  --c-surveillance-bg: #f4ecd2;
+}
+
+/* ----------  Base  ---------- */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-corps);
+  color: var(--texte);
+  background: var(--creme);
+  background-image:
+    radial-gradient(1200px 600px at 80% -10%, rgba(138, 154, 123, 0.10), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, rgba(192, 116, 74, 0.07), transparent 55%);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: var(--font-titre); font-weight: 600; line-height: 1.2; }
+a { color: var(--sauge-fonce); }
+
+/* ----------  Mise en page  ---------- */
+.wrap { width: min(1180px, 92vw); margin: 0 auto; }
+
+/* ----------  En-tête / navigation  ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250, 246, 238, 0.85);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--bordure);
+}
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0;
+}
+.brand { display: flex; align-items: center; gap: 0.7rem; }
+.brand .logo {
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  background: var(--sauge);
+  color: #fff;
+  border-radius: 12px;
+  font-size: 1.3rem;
+}
+.brand .brand-text strong {
+  font-family: var(--font-titre);
+  font-size: 1.25rem;
+  letter-spacing: 0.2px;
+}
+.brand .brand-text span {
+  display: block;
+  font-size: 0.74rem;
+  color: var(--texte-doux);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.nav { display: flex; gap: 0.4rem; }
+.nav a {
+  text-decoration: none;
+  color: var(--texte);
+  font-size: 0.92rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-pill);
+  transition: background 0.2s, color 0.2s;
+}
+.nav a:hover { background: var(--sauge-clair); color: var(--sauge-fonce); }
+
+/* ----------  Hero  ---------- */
+.hero {
+  padding: 3rem 0 1.5rem;
+  text-align: center;
+}
+.hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  margin: 0 0 0.5rem;
+  color: var(--sauge-fonce);
+}
+.hero p {
+  max-width: 620px;
+  margin: 0 auto;
+  color: var(--texte-doux);
+  font-size: 1.05rem;
+}
+.hero .stats {
+  display: flex;
+  justify-content: center;
+  gap: 2.2rem;
+  margin-top: 1.8rem;
+  flex-wrap: wrap;
+}
+.hero .stat strong {
+  display: block;
+  font-family: var(--font-titre);
+  font-size: 1.6rem;
+  color: var(--terre);
+}
+.hero .stat span { font-size: 0.82rem; color: var(--texte-doux); text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ----------  Titres de section  ---------- */
+.section { padding: 2.5rem 0; }
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+  flex-wrap: wrap;
+}
+.section-head h2 { font-size: 1.7rem; margin: 0; color: var(--sauge-fonce); }
+.section-head p { margin: 0.2rem 0 0; color: var(--texte-doux); font-size: 0.95rem; }
+
+/* ----------  Grille de cartes plantes  ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 1.6rem;
+}
+.card {
+  background: var(--creme-carte);
+  border: 1px solid var(--bordure);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--ombre);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card:hover { transform: translateY(-4px); box-shadow: var(--ombre-forte); }
+
+.card .photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--sauge-clair);
+  overflow: hidden;
+}
+.card .photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.card:hover .photo img { transform: scale(1.05); }
+
+.badge-diff {
+  position: absolute;
+  top: 0.8rem; left: 0.8rem;
+  background: rgba(255, 253, 248, 0.92);
+  color: var(--sauge-fonce);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.card .body { padding: 1.25rem 1.35rem 1.45rem; display: flex; flex-direction: column; gap: 0.85rem; }
+.card .titre h3 { margin: 0; font-size: 1.3rem; }
+.card .titre .latin { font-style: italic; color: var(--texte-doux); font-size: 0.92rem; }
+.card .desc { margin: 0; color: var(--texte-doux); font-size: 0.93rem; }
+
+/* Grille des caractéristiques d'entretien */
+.specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem 1rem;
+  margin: 0.2rem 0;
+}
+.spec { font-size: 0.86rem; }
+.spec .k {
+  display: flex; align-items: center; gap: 0.35rem;
+  font-weight: 600; color: var(--sauge-fonce);
+  font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.4px;
+}
+.spec .v { color: var(--texte-doux); }
+
+/* Symptômes */
+details.symptomes {
+  border-top: 1px dashed var(--bordure);
+  padding-top: 0.8rem;
+}
+details.symptomes summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--terre-fonce);
+  font-size: 0.86rem;
+  list-style: none;
+}
+details.symptomes summary::-webkit-details-marker { display: none; }
+details.symptomes summary::before { content: "⚠ "; }
+details.symptomes ul { margin: 0.6rem 0 0; padding-left: 1.1rem; }
+details.symptomes li { font-size: 0.85rem; color: var(--texte-doux); margin-bottom: 0.25rem; }
+
+/* Prochaine action */
+.next-action {
+  background: var(--sauge-clair);
+  border-radius: var(--radius);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.85rem;
+}
+.next-action .k {
+  font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px;
+  font-weight: 700; color: var(--sauge-fonce);
+}
+
+/* ----------  Section calendrier  ---------- */
+.calendar-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.4rem;
+}
+.filters { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.filter-chip {
+  border: 1px solid var(--bordure);
+  background: var(--creme-carte);
+  color: var(--texte);
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: inline-flex; align-items: center; gap: 0.4rem;
+}
+.filter-chip:hover { border-color: var(--sauge); }
+.filter-chip.active {
+  background: var(--sauge);
+  border-color: var(--sauge);
+  color: #fff;
+}
+.filter-chip .count {
+  background: rgba(0,0,0,0.08);
+  border-radius: var(--radius-pill);
+  padding: 0 0.4rem;
+  font-size: 0.72rem;
+}
+.filter-chip.active .count { background: rgba(255,255,255,0.25); }
+
+.export-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.btn {
+  border: none;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--terre); color: #fff; box-shadow: 0 4px 12px rgba(192,116,74,0.3); }
+.btn-primary:hover { background: var(--terre-fonce); }
+.btn-ghost { background: var(--sauge-clair); color: var(--sauge-fonce); }
+.btn-ghost:hover { background: #dde4d3; }
+
+/* Liste des tâches */
+.task-list { display: flex; flex-direction: column; gap: 0.7rem; }
+.task {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  background: var(--creme-carte);
+  border: 1px solid var(--bordure);
+  border-left: 5px solid var(--sauge);
+  border-radius: var(--radius);
+  padding: 0.85rem 1.1rem;
+  box-shadow: var(--ombre);
+  transition: opacity 0.3s, transform 0.2s;
+}
+.task[data-type="arrosage"]     { border-left-color: var(--c-arrosage); }
+.task[data-type="rempotage"]    { border-left-color: var(--c-rempotage); }
+.task[data-type="engrais"]      { border-left-color: var(--c-engrais); }
+.task[data-type="surveillance"] { border-left-color: var(--c-surveillance); }
+.task.done { opacity: 0.55; }
+
+.task .date-box {
+  text-align: center;
+  min-width: 58px;
+}
+.task .date-box .d { font-family: var(--font-titre); font-size: 1.5rem; line-height: 1; color: var(--texte); }
+.task .date-box .m { font-size: 0.72rem; text-transform: uppercase; color: var(--texte-doux); letter-spacing: 0.5px; }
+
+.task .info .t { font-weight: 600; font-size: 0.98rem; }
+.task .info .sub { font-size: 0.82rem; color: var(--texte-doux); }
+.task .info .due { font-size: 0.78rem; font-weight: 600; }
+.task .info .due.late { color: var(--terre-fonce); }
+.task .info .due.soon { color: var(--c-surveillance); }
+.task .info .due.ok { color: var(--sauge-fonce); }
+
+.type-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-pill);
+  margin-right: 0.4rem;
+}
+.type-tag[data-type="arrosage"]     { color: var(--c-arrosage); background: var(--c-arrosage-bg); }
+.type-tag[data-type="rempotage"]    { color: var(--c-rempotage); background: var(--c-rempotage-bg); }
+.type-tag[data-type="engrais"]      { color: var(--c-engrais); background: var(--c-engrais-bg); }
+.type-tag[data-type="surveillance"] { color: var(--c-surveillance); background: var(--c-surveillance-bg); }
+
+.task .actions { display: flex; gap: 0.4rem; }
+.btn-done {
+  border: 1px solid var(--sauge);
+  background: transparent;
+  color: var(--sauge-fonce);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.18s, color 0.18s;
+}
+.btn-done:hover { background: var(--sauge); color: #fff; }
+.task.done .btn-done { border-color: var(--bordure); color: var(--texte-doux); }
+
+/* ----------  États vides & messages  ---------- */
+.empty {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--texte-doux);
+  border: 1px dashed var(--bordure);
+  border-radius: var(--radius);
+}
+.notice {
+  background: var(--terre-clair);
+  color: var(--terre-fonce);
+  border-radius: var(--radius);
+  padding: 0.8rem 1rem;
+  font-size: 0.88rem;
+  margin-bottom: 1.2rem;
+}
+
+/* ----------  Toast  ---------- */
+.toast {
+  position: fixed;
+  bottom: 1.5rem; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--texte);
+  color: #fff;
+  padding: 0.7rem 1.2rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  box-shadow: var(--ombre-forte);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+  z-index: 100;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ----------  Pied de page  ---------- */
+.site-footer {
+  margin-top: 2rem;
+  padding: 2rem 0 2.5rem;
+  border-top: 1px solid var(--bordure);
+  color: var(--texte-doux);
+  font-size: 0.84rem;
+  text-align: center;
+}
+
+/* ----------  Responsive  ---------- */
+@media (max-width: 760px) {
+  .grid { grid-template-columns: 1fr; gap: 1.3rem; }
+}
+
+@media (max-width: 640px) {
+  .wrap { width: 90vw; }
+
+  /* En-tête plus compact */
+  .site-header .wrap { padding: 0.7rem 0; }
+  .brand .logo { width: 34px; height: 34px; font-size: 1.1rem; border-radius: 10px; }
+  .brand .brand-text strong { font-size: 1.1rem; }
+  .brand .brand-text span { font-size: 0.66rem; }
+  .nav a { padding: 0.4rem 0.55rem; font-size: 0.82rem; }
+
+  /* Hero resserré */
+  .hero { padding: 1.8rem 0 1rem; }
+  .hero p { font-size: 0.96rem; }
+  .hero .stats { gap: 1.4rem; margin-top: 1.3rem; }
+  .hero .stat strong { font-size: 1.35rem; }
+
+  /* Sections */
+  .section { padding: 1.8rem 0; }
+  .section-head h2 { font-size: 1.4rem; }
+  .section-head p { font-size: 0.88rem; }
+
+  /* Cartes plantes */
+  .specs { grid-template-columns: 1fr; }
+  .card .photo { aspect-ratio: 1 / 1; }
+  .card .body { padding: 1.1rem 1.15rem 1.25rem; }
+  .card .titre h3 { font-size: 1.2rem; }
+
+  /* Barre du calendrier : filtres défilables, boutons pleine largeur */
+  .calendar-toolbar { align-items: stretch; }
+  .filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.3rem;
+    scrollbar-width: none;
+  }
+  .filters::-webkit-scrollbar { display: none; }
+  .filter-chip { flex: 0 0 auto; }
+  .export-btns { width: 100%; }
+  .export-btns .btn { flex: 1 1 0; justify-content: center; }
+
+  /* Tâches : actions sur une 2e ligne */
+  .task { grid-template-columns: auto 1fr; gap: 0.8rem; padding: 0.8rem 0.9rem; }
+  .task .actions { grid-column: 1 / -1; justify-content: flex-end; margin-top: 0.2rem; }
+  .task .info .due { font-size: 0.76rem; }
+}
+
+/* ----------  Lien vers la fiche complète  ---------- */
+.card-link {
+  align-self: flex-start;
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--terre-fonce);
+  padding: 0.35rem 0;
+  transition: gap 0.2s, color 0.2s;
+}
+.card-link:hover { color: var(--terre); }
+
+/* ----------  Bloc QR sur les cartes  ---------- */
+.qr-block {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  border-top: 1px dashed var(--bordure);
+  padding-top: 0.85rem;
+}
+.qr-block.qr-missing { display: none; }   /* masqué tant que le QR n'est pas généré */
+.qr-block .qr {
+  width: 84px; height: 84px;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  background: #fff;
+  padding: 6px;
+  border: 1px solid var(--bordure);
+  image-rendering: pixelated;             /* QR net, sans flou */
+}
+.qr-block .qr-cap { display: flex; flex-direction: column; gap: 0.15rem; }
+.qr-block .qr-title {
+  font-weight: 700; font-size: 0.82rem; color: var(--sauge-fonce);
+  text-transform: uppercase; letter-spacing: 0.4px;
+}
+.qr-block .qr-sub { font-size: 0.82rem; color: var(--texte-doux); }
+
+/* ----------  Surbrillance d'une carte ciblée par un QR / lien profond  ---------- */
+.card-highlight { animation: cardPulse 2.4s ease; }
+@keyframes cardPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(138,154,123,0.0), var(--ombre); }
+  15%  { box-shadow: 0 0 0 4px rgba(138,154,123,0.55), var(--ombre-forte); }
+  60%  { box-shadow: 0 0 0 4px rgba(138,154,123,0.35), var(--ombre-forte); }
+  100% { box-shadow: 0 0 0 0 rgba(138,154,123,0.0), var(--ombre); }
+}

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calendrier d'entretien — Jardinerie</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📅</text></svg>" />
+  <style>
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0.7rem 0;
+      background: rgba(250,246,238,0.9);
+      backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid var(--bordure);
+    }
+    .topbar .inner { width: min(960px,92vw); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .topbar a { text-decoration: none; font-size: 0.9rem; color: var(--texte); padding: 0.4rem 0.8rem; border-radius: var(--radius-pill); }
+    .topbar a:hover { background: var(--sauge-clair); color: var(--sauge-fonce); }
+    .topbar .brand { font-family: var(--font-titre); font-weight: 600; color: var(--sauge-fonce); }
+
+    .cal-wrap { width: min(960px,92vw); margin: 1.6rem auto 3rem; }
+
+    .cal-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .cal-head h1 { font-size: 1.5rem; margin: 0; color: var(--sauge-fonce); text-transform: capitalize; }
+    .cal-nav { display: flex; align-items: center; gap: 0.5rem; }
+    .cal-nav button {
+      border: 1px solid var(--bordure); background: var(--creme-carte); color: var(--texte);
+      font-family: inherit; font-size: 0.9rem; padding: 0.45rem 0.8rem; border-radius: var(--radius-pill); cursor: pointer;
+    }
+    .cal-nav button:hover { border-color: var(--sauge); }
+
+    .legend { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.1rem; }
+    .legend .item { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--texte-doux); }
+    .legend .dot { width: 11px; height: 11px; border-radius: 50%; }
+
+    /* Abonnement calendrier (.ics) */
+    .subscribe { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin: 0 0 1.2rem; }
+    .btn-sub {
+      text-decoration: none; font-size: 0.88rem; font-weight: 600;
+      padding: 0.55rem 1rem; border-radius: var(--radius-pill);
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      border: 1px solid var(--bordure); background: var(--creme-carte); color: var(--texte);
+    }
+    .btn-sub.primary { background: var(--terre); border-color: var(--terre); color: #fff; box-shadow: 0 4px 12px rgba(192,116,74,0.3); }
+    .btn-sub.primary:hover { background: var(--terre-fonce); }
+    .btn-sub:not(.primary):hover { border-color: var(--sauge); }
+    .sub-help { width: 100%; margin-top: 0.2rem; }
+    .sub-help summary { cursor: pointer; font-size: 0.85rem; color: var(--sauge-fonce); font-weight: 600; }
+    .sub-help .body { font-size: 0.86rem; color: var(--texte-doux); background: var(--sauge-clair); border-radius: var(--radius); padding: 0.9rem 1.1rem; margin-top: 0.6rem; }
+    .sub-help .body code { background: rgba(0,0,0,0.06); padding: 0.05rem 0.3rem; border-radius: 5px; word-break: break-all; }
+    .sub-help .body ol { margin: 0.4rem 0 0.6rem; padding-left: 1.2rem; }
+    .sub-help .body li { margin-bottom: 0.35rem; }
+
+    /* Grille calendrier */
+    .grid-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+    .dow { text-align: center; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--texte-doux); font-weight: 600; padding-bottom: 2px; }
+    .cell {
+      min-height: 78px; background: var(--creme-carte); border: 1px solid var(--bordure);
+      border-radius: 12px; padding: 5px 6px; position: relative; cursor: default;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .cell.empty { background: transparent; border: none; }
+    .cell.has:hover { border-color: var(--sauge); cursor: pointer; }
+    .cell .num { font-size: 0.82rem; color: var(--texte-doux); font-weight: 600; align-self: flex-end; }
+    .cell.today { border-color: var(--sauge); box-shadow: 0 0 0 1.5px var(--sauge) inset; }
+    .cell.today .num { color: var(--sauge-fonce); }
+    .cell .dots { display: flex; flex-wrap: wrap; gap: 3px; }
+    .cell .dots .d { width: 9px; height: 9px; border-radius: 50%; }
+    .cell .more { font-size: 0.66rem; color: var(--texte-doux); }
+
+    /* Agenda */
+    .agenda { margin-top: 2rem; }
+    .agenda h2 { font-size: 1.2rem; color: var(--sauge-fonce); }
+    .day-group { margin-bottom: 1.1rem; }
+    .day-group.flash { animation: dayFlash 2s ease; }
+    @keyframes dayFlash { 0%,100% { background: transparent; } 20% { background: var(--sauge-clair); } }
+    .day-group .day-head { font-weight: 700; font-size: 0.9rem; color: var(--texte); margin: 0.2rem 0 0.5rem; text-transform: capitalize; }
+    .day-group .day-head.is-today { color: var(--sauge-fonce); }
+    .ev {
+      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0.8rem;
+      background: var(--creme-carte); border: 1px solid var(--bordure); border-left: 5px solid var(--sauge);
+      border-radius: var(--radius); padding: 0.7rem 0.9rem; margin-bottom: 0.5rem;
+    }
+    .ev[data-type="arrosage"]{border-left-color:var(--c-arrosage);}
+    .ev[data-type="rempotage"]{border-left-color:var(--c-rempotage);}
+    .ev[data-type="engrais"]{border-left-color:var(--c-engrais);}
+    .ev[data-type="surveillance"]{border-left-color:var(--c-surveillance);}
+    .ev .t { font-weight: 600; font-size: 0.92rem; }
+    .ev .sub { font-size: 0.8rem; color: var(--texte-doux); }
+    .ev .btn-done { border: 1px solid var(--sauge); background: transparent; color: var(--sauge-fonce);
+      font-family: inherit; font-size: 0.8rem; font-weight: 600; padding: 0.4rem 0.8rem; border-radius: var(--radius-pill); cursor: pointer; white-space: nowrap; }
+    .ev .btn-done:hover { background: var(--sauge); color: #fff; }
+    .empty-month { color: var(--texte-doux); border: 1px dashed var(--bordure); border-radius: var(--radius); padding: 1.5rem; text-align: center; }
+
+    @media (max-width: 640px) {
+      .cell { min-height: 58px; border-radius: 9px; }
+      .cell .num { font-size: 0.74rem; }
+      .grid-cal { gap: 4px; }
+      .cal-head h1 { font-size: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="inner">
+      <a class="back" href="index.html">← Mes plantes</a>
+      <span class="brand">📅 Calendrier d'entretien</span>
+      <a href="index.html#calendrier">Liste</a>
+    </div>
+  </header>
+
+  <main class="cal-wrap">
+    <div class="cal-head">
+      <h1 id="month-label">—</h1>
+      <div class="cal-nav">
+        <button id="prev" aria-label="Mois précédent">←</button>
+        <button id="today-btn">Aujourd'hui</button>
+        <button id="next" aria-label="Mois suivant">→</button>
+      </div>
+    </div>
+
+    <div class="subscribe">
+      <a id="sub-webcal" class="btn-sub primary" href="#">📲 S'abonner au calendrier</a>
+      <a id="sub-ics" class="btn-sub" href="jardinerie.ics" download>⬇︎ Télécharger le .ics</a>
+      <details class="sub-help">
+        <summary>Comment l'ajouter à Notion Calendar, Google ou Apple ?</summary>
+        <div class="body">
+          <p><strong>Notion Calendar</strong> affiche les agendas Google et Apple connectés. Le plus simple :</p>
+          <ol>
+            <li><strong>Google Agenda</strong> (ordinateur) → « Autres agendas » <strong>+</strong> → <em>À partir de l'URL</em> → colle l'adresse du calendrier <code id="sub-url">jardinerie.ics</code> → <em>Ajouter</em>. Puis, dans <strong>Notion Calendar</strong>, connecte ce compte Google : l'agenda « Jardinerie » apparaît.</li>
+            <li><strong>Apple / iPhone</strong> : Réglages → Calendrier → Comptes → Ajouter un compte → <em>Autre</em> → <em>Ajouter un calendrier avec abonnement</em> → colle la même adresse. (Apple/iCloud se synchronise aussi avec Notion Calendar.)</li>
+          </ol>
+          <p>Sur ton ordinateur, le bouton <strong>« S'abonner au calendrier »</strong> ouvre directement ton app calendrier par défaut pour t'abonner en un clic.</p>
+          <p style="margin-bottom:0;">Le calendrier se met à jour tout seul (arrosages, rempotages, engrais… récurrents). Si tu modifies les fréquences, relance <code>tools/generate-ics.py</code> et renvoie le fichier sur GitHub.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="legend" id="legend"></div>
+    <div class="dow-row grid-cal" id="dow-row"></div>
+    <div class="grid-cal" id="grid"></div>
+
+    <div class="agenda">
+      <h2>Au programme ce mois-ci</h2>
+      <div id="agenda"></div>
+    </div>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="data/db.js"></script>
+  <script src="assets/js/core.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      var C = window.JardinerieCore;
+      var DOW = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
+      var DATA = null;
+      var view = C.today();           // 1er du mois affiché
+      view.setDate(1);
+
+      // Liens d'abonnement au flux .ics (URL calculée depuis la page)
+      (function setupSubscribe() {
+        var ics = new URL("jardinerie.ics", location.href).href;
+        var w = document.getElementById("sub-webcal");
+        var d = document.getElementById("sub-ics");
+        var u = document.getElementById("sub-url");
+        if (w) w.href = ics.replace(/^https?:/i, "webcal:");
+        if (d) d.href = ics;
+        if (u) u.textContent = ics;
+      })();
+
+      function monthOccurrences(year, month) {
+        // map "YYYY-MM-DD" -> [ {task} ]
+        var state = C.loadState();
+        var start = new Date(year, month, 1);
+        var end = new Date(year, month + 1, 0);
+        var map = {};
+        DATA.tasks.forEach(function (task) {
+          C.occurrencesInRange(task, state, start, end).forEach(function (d) {
+            var iso = C.toISO(d);
+            (map[iso] = map[iso] || []).push(task);
+          });
+        });
+        return map;
+      }
+
+      function renderLegend() {
+        document.getElementById("legend").innerHTML = Object.keys(C.TYPES).map(function (k) {
+          var t = C.TYPES[k];
+          return '<span class="item"><span class="dot" style="background:' + t.color + '"></span>' + t.label + "</span>";
+        }).join("");
+        document.getElementById("dow-row").innerHTML = DOW.map(function (d) { return '<div class="dow">' + d + "</div>"; }).join("");
+      }
+
+      function render() {
+        var year = view.getFullYear(), month = view.getMonth();
+        document.getElementById("month-label").textContent = C.MOIS_LONG[month] + " " + year;
+
+        var map = monthOccurrences(year, month);
+        var t0 = C.today();
+        var daysInMonth = new Date(year, month + 1, 0).getDate();
+        var first = new Date(year, month, 1);
+        var offset = (first.getDay() + 6) % 7;   // lundi = 0
+
+        var cells = "";
+        for (var i = 0; i < offset; i++) cells += '<div class="cell empty"></div>';
+        for (var day = 1; day <= daysInMonth; day++) {
+          var date = new Date(year, month, day);
+          var iso = C.toISO(date);
+          var occ = map[iso] || [];
+          var isToday = C.sameDay(date, t0);
+          var dots = occ.slice(0, 5).map(function (task) {
+            return '<span class="d" style="background:' + C.TYPES[task.type].color + '"></span>';
+          }).join("");
+          var more = occ.length > 5 ? '<span class="more">+' + (occ.length - 5) + "</span>" : "";
+          cells += '<div class="cell' + (occ.length ? " has" : "") + (isToday ? " today" : "") + '"' +
+                   (occ.length ? ' data-iso="' + iso + '"' : "") + '>' +
+                     '<span class="num">' + day + "</span>" +
+                     '<span class="dots">' + dots + "</span>" + more +
+                   "</div>";
+        }
+        document.getElementById("grid").innerHTML = cells;
+
+        // Agenda du mois (groupé par date)
+        var isoDays = Object.keys(map).sort();
+        var agenda = document.getElementById("agenda");
+        if (!isoDays.length) {
+          agenda.innerHTML = '<div class="empty-month">Aucun soin prévu ce mois-ci. 🌿</div>';
+        } else {
+          agenda.innerHTML = isoDays.map(function (iso) {
+            var date = C.fromISO(iso);
+            var head = date.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
+            var isToday = C.sameDay(date, t0);
+            var evs = map[iso].map(function (task) {
+              return '<div class="ev" data-type="' + task.type + '">' +
+                  '<div><div class="t"><span class="type-tag" data-type="' + task.type + '">' + C.TYPES[task.type].label + "</span> " +
+                    C.escapeHTML(task.titre) + "</div>" +
+                    '<div class="sub">' + C.escapeHTML(task.plante) + " · " + C.escapeHTML(task.frequence) + "</div></div>" +
+                  '<button class="btn-done" data-id="' + task.id + '">✓ Fait</button>' +
+                "</div>";
+            }).join("");
+            return '<div class="day-group" id="grp-' + iso + '">' +
+                     '<div class="day-head' + (isToday ? " is-today" : "") + '">' + head + (isToday ? " · aujourd'hui" : "") + "</div>" +
+                     evs + "</div>";
+          }).join("");
+        }
+
+        // Interactions
+        document.querySelectorAll(".cell.has").forEach(function (c) {
+          c.addEventListener("click", function () {
+            var grp = document.getElementById("grp-" + c.getAttribute("data-iso"));
+            if (grp) {
+              grp.scrollIntoView({ behavior: "smooth", block: "center" });
+              grp.classList.remove("flash"); void grp.offsetWidth; grp.classList.add("flash");
+            }
+          });
+        });
+        agenda.querySelectorAll(".btn-done").forEach(function (b) {
+          b.addEventListener("click", function () {
+            C.markDone(b.getAttribute("data-id"));
+            render();
+            showToast("✓ Fait — calendrier recalculé.");
+          });
+        });
+      }
+
+      var toastTimer = null;
+      function showToast(msg) {
+        var el = document.getElementById("toast");
+        el.textContent = msg; el.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { el.classList.remove("show"); }, 3000);
+      }
+
+      function go(delta) { view.setMonth(view.getMonth() + delta); render(); }
+
+      document.getElementById("prev").addEventListener("click", function () { go(-1); });
+      document.getElementById("next").addEventListener("click", function () { go(1); });
+      document.getElementById("today-btn").addEventListener("click", function () {
+        view = C.today(); view.setDate(1); render();
+      });
+
+      C.loadData().then(function (data) {
+        DATA = data;
+        renderLegend();
+        render();
+      });
+    })();
+  </script>
+</body>
+</html>

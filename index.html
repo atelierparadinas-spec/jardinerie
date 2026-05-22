@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jardinerie — Mes plantes d'intérieur</title>
+  <meta name="description" content="Fiches d'entretien et calendrier de soins pour mes plantes d'intérieur." />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <!-- Favicon emoji (inline, aucune dépendance) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪴</text></svg>" />
+</head>
+<body>
+
+  <!-- ==========  EN-TÊTE  ========== -->
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo">🪴</div>
+        <div class="brand-text">
+          <strong>Jardinerie</strong>
+          <span>Carnet d'entretien</span>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="#plantes">Mes plantes</a>
+        <a href="#calendrier">Tâches</a>
+        <a href="calendrier.html">📅 Calendrier</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========  HERO  ========== -->
+    <section class="hero wrap">
+      <h1>Mes plantes d'intérieur</h1>
+      <p>Toutes les fiches d'entretien de mes plantes au même endroit, avec un calendrier de soins qui se met à jour automatiquement et s'exporte vers Notion.</p>
+      <div class="stats">
+        <div class="stat"><strong id="stat-plantes">—</strong><span>Plantes</span></div>
+        <div class="stat"><strong id="stat-taches">—</strong><span>Tâches suivies</span></div>
+        <div class="stat"><strong id="stat-semaine">—</strong><span>À faire sous 7 j</span></div>
+      </div>
+    </section>
+
+    <!-- ==========  PLANTES  ========== -->
+    <section id="plantes" class="section wrap">
+      <div class="section-head">
+        <div>
+          <h2>Mes plantes</h2>
+          <p>Fiches détaillées : lumière, arrosage, humidité, température, rempotage et symptômes à surveiller.</p>
+        </div>
+      </div>
+      <div id="plants-grid" class="grid">
+        <!-- Cartes injectées par app.js -->
+      </div>
+    </section>
+
+    <!-- ==========  CALENDRIER  ========== -->
+    <section id="calendrier" class="section wrap">
+      <div class="section-head">
+        <div>
+          <h2>Calendrier d'entretien</h2>
+          <p>Prochaines actions calculées automatiquement. Cochez « Fait » pour recalculer la date suivante.</p>
+        </div>
+      </div>
+
+      <div class="calendar-toolbar">
+        <div id="filters" class="filters">
+          <!-- Filtres injectés par app.js -->
+        </div>
+        <div class="export-btns">
+          <button class="btn btn-ghost" id="btn-csv">⬇︎ Exporter en CSV</button>
+          <button class="btn btn-primary" id="btn-notion">⬇︎ Exporter pour Notion</button>
+        </div>
+      </div>
+
+      <div id="task-list" class="task-list">
+        <!-- Tâches injectées par app.js -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========  PIED DE PAGE  ========== -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>🪴 <strong>Jardinerie</strong> — projet local. Données dans <code>/data</code>, photos libres de droit dans <code>/assets/images</code>.</p>
+      <p id="footer-date"></p>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- Données embarquées (fallback file://) puis logique applicative -->
+  <script src="data/db.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

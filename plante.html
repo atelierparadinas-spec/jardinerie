@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fiche plante — Jardinerie</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪴</text></svg>" />
+  <style>
+    /* ----- Styles propres à la fiche plante (mobile-first) ----- */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: 0.7rem 0;
+      background: rgba(250,246,238,0.9);
+      backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid var(--bordure);
+    }
+    .topbar a { text-decoration: none; font-size: 0.9rem; color: var(--texte); padding: 0.4rem 0.8rem; border-radius: var(--radius-pill); }
+    .topbar a:hover { background: var(--sauge-clair); color: var(--sauge-fonce); }
+    .topbar .back { font-weight: 600; }
+
+    .plant-page { width: min(760px, 92vw); margin: 0 auto; padding-bottom: 3rem; }
+
+    .plant-hero {
+      position: relative;
+      margin-top: 1.4rem;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      background: var(--sauge-clair);
+      box-shadow: var(--ombre);
+    }
+    .plant-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .plant-hero .badge-diff { top: 1rem; left: 1rem; }
+
+    .plant-head { margin: 1.3rem 0 0.4rem; }
+    .plant-head h1 { font-size: clamp(1.7rem, 5vw, 2.3rem); margin: 0; color: var(--sauge-fonce); }
+    .plant-head .latin { font-style: italic; color: var(--texte-doux); font-size: 1rem; }
+    .plant-desc { color: var(--texte-doux); font-size: 1rem; margin: 0.8rem 0 1.4rem; }
+
+    .block-title { font-family: var(--font-titre); font-size: 1.15rem; color: var(--sauge-fonce); margin: 1.6rem 0 0.8rem; }
+
+    /* Réutilise .specs/.spec/.next-action/.symptomes/.type-tag/.btn de style.css */
+    .plant-page .specs { gap: 0.8rem 1.2rem; }
+
+    .ptask {
+      display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem;
+      background: var(--creme-carte); border: 1px solid var(--bordure);
+      border-left: 5px solid var(--sauge);
+      border-radius: var(--radius); padding: 0.8rem 1rem; margin-bottom: 0.7rem;
+      box-shadow: var(--ombre);
+    }
+    .ptask[data-type="arrosage"]     { border-left-color: var(--c-arrosage); }
+    .ptask[data-type="rempotage"]    { border-left-color: var(--c-rempotage); }
+    .ptask[data-type="engrais"]      { border-left-color: var(--c-engrais); }
+    .ptask[data-type="surveillance"] { border-left-color: var(--c-surveillance); }
+    .ptask.done { opacity: 0.55; }
+    .ptask .date-box { text-align: center; min-width: 54px; }
+    .ptask .date-box .d { font-family: var(--font-titre); font-size: 1.4rem; line-height: 1; }
+    .ptask .date-box .m { font-size: 0.7rem; text-transform: uppercase; color: var(--texte-doux); letter-spacing: 0.5px; }
+    .ptask .info .t { font-weight: 600; font-size: 0.95rem; }
+    .ptask .info .sub { font-size: 0.8rem; color: var(--texte-doux); }
+    .ptask .info .due { font-size: 0.76rem; font-weight: 600; }
+    .ptask .info .due.late { color: var(--terre-fonce); }
+    .ptask .info .due.soon { color: var(--c-surveillance); }
+    .ptask .info .due.ok { color: var(--sauge-fonce); }
+
+    .note-ident {
+      font-size: 0.86rem; color: var(--texte-doux);
+      background: var(--sauge-clair); border-radius: var(--radius);
+      padding: 0.8rem 1rem; margin-top: 1.4rem;
+    }
+    .page-error { text-align: center; padding: 4rem 1rem; color: var(--texte-doux); }
+
+    @media (max-width: 640px) {
+      .plant-hero { aspect-ratio: 1 / 1; }
+      .plant-page .specs { grid-template-columns: 1fr; }
+      .ptask { grid-template-columns: auto 1fr; }
+      .ptask .actions { grid-column: 1 / -1; display: flex; justify-content: flex-end; margin-top: 0.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="plant-page" style="display:flex;align-items:center;justify-content:space-between;padding:0;width:min(760px,92vw);">
+      <a class="back" href="index.html">← Mes plantes</a>
+      <a href="calendrier.html">📅 Calendrier</a>
+    </div>
+  </header>
+
+  <main id="app" class="plant-page">
+    <div class="page-error">Chargement…</div>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="data/db.js"></script>
+  <script src="assets/js/core.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      var C = window.JardinerieCore;
+      var app = document.getElementById("app");
+
+      function getId() {
+        var p = new URLSearchParams(location.search).get("id");
+        if (p) return p;
+        // Accepte aussi le format ancre #id (compat)
+        return decodeURIComponent((location.hash || "").replace(/^#/, ""));
+      }
+
+      function fallbackSVG(nom) {
+        var svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'>" +
+          "<rect width='400' height='300' fill='#e8ede1'/>" +
+          "<g fill='#8a9a7b'><path d='M200 250 C150 200 120 150 200 60 C280 150 250 200 200 250 Z'/>" +
+          "<path d='M200 250 C170 210 110 200 70 230 C140 240 170 250 200 260 Z' opacity='0.6'/>" +
+          "<path d='M200 250 C230 210 290 200 330 230 C260 240 230 250 200 260 Z' opacity='0.6'/></g>" +
+          "<rect x='170' y='250' width='60' height='30' rx='4' fill='#c0744a'/>" +
+          "<text x='200' y='295' text-anchor='middle' font-family='Georgia,serif' font-size='13' fill='#6b7a5c'>" +
+          C.escapeHTML(nom) + "</text></svg>";
+        return "data:image/svg+xml;utf8," + encodeURIComponent(svg).replace(/'/g, "%27");
+      }
+
+      function specRow(k, v) {
+        return '<div class="spec"><div class="k">' + k + '</div><div class="v">' + C.escapeHTML(v) + "</div></div>";
+      }
+
+      var DATA = null, PLANT = null;
+
+      function renderTasksFor(plant) {
+        var state = C.loadState();
+        var tasks = C.enrichTasks(DATA.tasks.filter(function (t) { return t.plantId === plant.id; }), state);
+        return tasks.map(function (t) {
+          var due = t._due;
+          var cls = t._diff < 0 ? "late" : (t._diff <= 7 ? "soon" : "ok");
+          var lbl = t._diff < 0 ? ("En retard de " + Math.abs(t._diff) + " j")
+                  : t._diff === 0 ? "Aujourd'hui"
+                  : t._diff === 1 ? "Demain" : ("Dans " + t._diff + " jours");
+          return '<div class="ptask" data-type="' + t.type + '">' +
+              '<div class="date-box"><div class="d">' + due.getDate() + '</div><div class="m">' + C.MOIS[due.getMonth()] + '</div></div>' +
+              '<div class="info">' +
+                '<div class="t"><span class="type-tag" data-type="' + t.type + '">' + C.TYPES[t.type].label + '</span> ' + C.escapeHTML(t.titre) + '</div>' +
+                '<div class="sub">' + C.escapeHTML(t.frequence) + '</div>' +
+                '<div class="due ' + cls + '">' + lbl + ' — ' + C.frLong(due) + '</div>' +
+              '</div>' +
+              '<div class="actions"><button class="btn-done" data-id="' + t.id + '">✓ Fait</button></div>' +
+            '</div>';
+        }).join("");
+      }
+
+      function wireDone() {
+        app.querySelectorAll(".btn-done").forEach(function (b) {
+          b.addEventListener("click", function () {
+            C.markDone(b.getAttribute("data-id"));
+            render();
+            showToast("✓ Tâche faite — prochaine date recalculée.");
+          });
+        });
+      }
+
+      function render() {
+        var p = PLANT;
+        var specs = [
+          ["☀️ Lumière", p.lumiere], ["💧 Arrosage", p.arrosage],
+          ["💦 Humidité", p.humidite], ["🌡️ Température", p.temperature],
+          ["🪴 Rempotage", p.rempotage], ["🌿 Engrais", p.engrais]
+        ].map(function (s) { return specRow(s[0], s[1]); }).join("");
+
+        var symptomes = (p.symptomes || []).map(function (x) { return "<li>" + C.escapeHTML(x) + "</li>"; }).join("");
+        var note = p.noteIdentification ? '<div class="note-ident">🔎 ' + C.escapeHTML(p.noteIdentification) + "</div>" : "";
+
+        app.innerHTML =
+          '<div class="plant-hero">' +
+            '<img src="' + C.escapeHTML(p.photo) + '" alt="' + C.escapeHTML(p.nomCommun) + '" ' +
+              "onerror=\"this.onerror=null;this.src='" + fallbackSVG(p.nomCommun) + "';\">" +
+            '<span class="badge-diff">' + C.escapeHTML(p.difficulte) + '</span>' +
+          '</div>' +
+          '<div class="plant-head"><h1>' + C.escapeHTML(p.nomCommun) + '</h1>' +
+            '<div class="latin">' + C.escapeHTML(p.nomLatin) + '</div></div>' +
+          '<p class="plant-desc">' + C.escapeHTML(p.description) + '</p>' +
+          '<div class="block-title">Entretien</div>' +
+          '<div class="specs">' + specs + '</div>' +
+          (symptomes ? '<div class="block-title">Symptômes à surveiller</div><ul style="color:var(--texte-doux);font-size:0.92rem;">' + symptomes + "</ul>" : "") +
+          '<div class="next-action" style="margin-top:1rem;"><div class="k">Prochaine action</div>' + C.escapeHTML(p.prochaineAction) + '</div>' +
+          '<div class="block-title">Entretien à venir</div>' + renderTasksFor(p) +
+          note;
+
+        document.title = p.nomCommun + " — Jardinerie";
+        wireDone();
+      }
+
+      var toastTimer = null;
+      function showToast(msg) {
+        var el = document.getElementById("toast");
+        el.textContent = msg; el.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { el.classList.remove("show"); }, 3000);
+      }
+
+      C.loadData().then(function (data) {
+        DATA = data;
+        var id = getId();
+        PLANT = C.getPlant(DATA.plants, id);
+        if (!PLANT) {
+          app.innerHTML = '<div class="page-error"><h1>Plante introuvable</h1>' +
+            '<p>Aucune plante ne correspond à « ' + C.escapeHTML(id || "(aucun identifiant)") + ' ».</p>' +
+            '<p><a href="index.html">← Retour à mes plantes</a></p></div>';
+          return;
+        }
+        render();
+      });
+    })();
+  </script>
+</body>
+</html>

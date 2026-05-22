@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jardinerie — Présentation mobile</title>
+  <style>
+    /* ===================================================================
+       Page de présentation : iPhone moderne (Dynamic Island) contenant
+       le site Jardinerie en version mobile, défilable comme sur un vrai
+       téléphone. Fond studio clair crème. iPhone seul, épuré.
+       =================================================================== */
+
+    :root {
+      --screen-w: 393px;   /* points logiques iPhone */
+      --screen-h: 852px;
+      --bezel: 14px;       /* épaisseur du cadre */
+      --statusbar: 52px;   /* hauteur de la barre d'état iOS */
+      --radius-out: 62px;
+      --radius-in: 48px;
+      --cream: #faf6ee;    /* identique au fond du site */
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      /* Studio clair crème : dégradé doux + halos sauge/terre */
+      background:
+        radial-gradient(1100px 700px at 78% 12%, rgba(138,154,123,0.20), transparent 60%),
+        radial-gradient(900px 600px at 12% 88%, rgba(192,116,74,0.12), transparent 58%),
+        linear-gradient(160deg, #fbf8f1 0%, #f3ece0 55%, #ece3d4 100%);
+    }
+
+    /* Conteneur mis à l'échelle pour tenir dans la fenêtre */
+    .scaler {
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    /* Scène : iPhone + ombre au sol */
+    .stage {
+      position: relative;
+      width: calc(var(--screen-w) + var(--bezel) * 2);
+      height: calc(var(--screen-h) + var(--bezel) * 2);
+    }
+
+    /* Ombre portée « flottante » sous le téléphone */
+    .stage::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -54px;
+      width: 78%;
+      height: 60px;
+      transform: translateX(-50%);
+      background: radial-gradient(ellipse at center, rgba(60,50,35,0.30), rgba(60,50,35,0) 70%);
+      filter: blur(8px);
+      z-index: 0;
+    }
+
+    /* Cadre du téléphone (titane sombre) */
+    .device {
+      position: relative;
+      width: calc(var(--screen-w) + var(--bezel) * 2);
+      height: calc(var(--screen-h) + var(--bezel) * 2);
+      border-radius: var(--radius-out);
+      background: linear-gradient(145deg, #43434a 0%, #2a2a2e 40%, #1b1b1f 100%);
+      padding: var(--bezel);
+      box-shadow:
+        0 2px 3px rgba(255,255,255,0.25) inset,         /* liseré métal haut */
+        0 -2px 3px rgba(0,0,0,0.4) inset,
+        0 30px 60px rgba(40,33,22,0.35),                /* ombre principale */
+        0 8px 20px rgba(40,33,22,0.20);
+      z-index: 1;
+    }
+    /* Fin liseré clair du contour métallique */
+    .device::before {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: calc(var(--radius-out) - 3px);
+      box-shadow: 0 0 0 1.5px rgba(180,180,188,0.45) inset;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* Boutons latéraux */
+    .btn-side { position: absolute; background: linear-gradient(180deg,#3a3a3f,#202024); border-radius: 3px; }
+    .b-action { left: -3px; top: 132px; width: 4px; height: 34px; }   /* bouton action */
+    .b-volup  { left: -3px; top: 188px; width: 4px; height: 58px; }
+    .b-voldn  { left: -3px; top: 258px; width: 4px; height: 58px; }
+    .b-power  { right: -3px; top: 208px; width: 4px; height: 92px; }
+
+    /* Écran */
+    .screen {
+      position: relative;
+      width: var(--screen-w);
+      height: var(--screen-h);
+      border-radius: var(--radius-in);
+      overflow: hidden;
+      background: var(--cream);
+      z-index: 2;
+    }
+
+    /* L'iframe contient le vrai site, en version mobile (largeur = 393px) */
+    .screen iframe {
+      position: absolute;
+      top: var(--statusbar);
+      left: 0;
+      width: var(--screen-w);
+      height: calc(var(--screen-h) - var(--statusbar));
+      border: 0;
+      background: var(--cream);
+    }
+
+    /* Barre d'état iOS */
+    .statusbar {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: var(--statusbar);
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px 0 34px;
+      color: #14130f;
+      pointer-events: none;
+      font-feature-settings: "tnum";
+    }
+    .statusbar .time {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      padding-top: 4px;
+    }
+    .statusbar .icons {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding-top: 4px;
+    }
+    .statusbar svg { display: block; }
+
+    /* Dynamic Island */
+    .island {
+      position: absolute;
+      top: 13px; left: 50%;
+      transform: translateX(-50%);
+      width: 126px; height: 37px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 6;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+    /* petit point caméra dans l'île */
+    .island::after {
+      content: "";
+      position: absolute;
+      right: 16px; top: 50%;
+      transform: translateY(-50%);
+      width: 11px; height: 11px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #1d2a3a, #000 70%);
+      box-shadow: 0 0 0 1px rgba(40,60,90,0.5);
+    }
+
+    /* Indicateur d'accueil (home bar) */
+    .home-indicator {
+      position: absolute;
+      bottom: 9px; left: 50%;
+      transform: translateX(-50%);
+      width: 138px; height: 5px;
+      background: rgba(20,19,15,0.55);
+      border-radius: 3px;
+      z-index: 6;
+      pointer-events: none;
+    }
+
+    /* Indice discret (n'apparaît pas sur capture si on cadre l'iPhone) */
+    .hint {
+      position: fixed;
+      bottom: 16px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 12.5px;
+      color: rgba(60,50,35,0.45);
+      letter-spacing: 0.2px;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scaler" id="scaler">
+    <div class="stage">
+      <div class="device">
+        <span class="btn-side b-action"></span>
+        <span class="btn-side b-volup"></span>
+        <span class="btn-side b-voldn"></span>
+        <span class="btn-side b-power"></span>
+
+        <div class="screen">
+          <!-- Barre d'état iOS -->
+          <div class="statusbar">
+            <span class="time">9:41</span>
+            <span class="icons">
+              <!-- réseau -->
+              <svg width="18" height="12" viewBox="0 0 18 12" fill="#14130f" aria-hidden="true">
+                <rect x="0"  y="8"  width="3" height="4"  rx="1"/>
+                <rect x="5"  y="6"  width="3" height="6"  rx="1"/>
+                <rect x="10" y="3"  width="3" height="9"  rx="1"/>
+                <rect x="15" y="0"  width="3" height="12" rx="1"/>
+              </svg>
+              <!-- wifi -->
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="#14130f" aria-hidden="true">
+                <path d="M8.5 2.2c2.7 0 5.2 1 7.1 2.7l-1.5 1.7C12.6 5.2 10.6 4.4 8.5 4.4S4.4 5.2 2.9 6.6L1.4 4.9C3.3 3.2 5.8 2.2 8.5 2.2z"/>
+                <path d="M8.5 6.1c1.6 0 3 .6 4.1 1.5l-1.6 1.8c-.7-.6-1.6-.9-2.5-.9s-1.8.3-2.5.9L4.4 7.6C5.5 6.7 6.9 6.1 8.5 6.1z"/>
+                <circle cx="8.5" cy="10.4" r="1.5"/>
+              </svg>
+              <!-- batterie -->
+              <svg width="27" height="13" viewBox="0 0 27 13" aria-hidden="true">
+                <rect x="0.5" y="0.5" width="22" height="12" rx="3.5" fill="none" stroke="#14130f" stroke-opacity="0.5"/>
+                <rect x="2.2" y="2.2" width="16" height="8.6" rx="2" fill="#14130f"/>
+                <rect x="24" y="4" width="2.2" height="5" rx="1.1" fill="#14130f" fill-opacity="0.5"/>
+              </svg>
+            </span>
+          </div>
+
+          <div class="island"></div>
+
+          <!-- Le vrai site, en version mobile, défilable -->
+          <iframe src="index.html" title="Jardinerie (mobile)"></iframe>
+
+          <div class="home-indicator"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hint">Fais défiler dans l'écran ↕</div>
+
+  <script>
+    /* Met le téléphone à l'échelle pour tenir dans la fenêtre, sans le rogner. */
+    (function () {
+      var scaler = document.getElementById("scaler");
+      var DEVICE_W = 393 + 28;   // écran + 2× cadre
+      var DEVICE_H = 852 + 28;
+      function fit() {
+        var marginV = 56;        // marge haut/bas (ombre + indice)
+        var marginH = 32;
+        var s = Math.min(
+          (window.innerHeight - marginV) / DEVICE_H,
+          (window.innerWidth  - marginH) / DEVICE_W,
+          1.15
+        );
+        scaler.style.transform = "scale(" + s + ")";
+      }
+      window.addEventListener("resize", fit);
+      fit();
+    })();
+  </script>
+</body>
+</html>

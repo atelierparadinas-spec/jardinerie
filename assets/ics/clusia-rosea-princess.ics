@@ -1,0 +1,61 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Jardinerie//Entretien des plantes//FR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Jardinerie — Arbre autographe « Princess »
+NAME:Jardinerie — Arbre autographe « Princess »
+X-WR-TIMEZONE:Europe/Paris
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+COLOR:120,154,123
+BEGIN:VEVENT
+UID:clusia-arrosage@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:💧 Arroser le Clusia
+DTSTART;VALUE=DATE:20260531
+DTEND;VALUE=DATE:20260601
+RRULE:FREQ=DAILY;INTERVAL=9
+DESCRIPTION:Clusia « Princess » · Tous les 7 à 10 jours\nLaisser séc
+ her les 2 premiers centimètres.\n— Carnet Jardinerie
+CATEGORIES:Arrosage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:clusia-rempotage@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🪴 Rempoter le Clusia
+DTSTART;VALUE=DATE:20280521
+DTEND;VALUE=DATE:20280522
+RRULE:FREQ=DAILY;INTERVAL=730
+DESCRIPTION:Clusia « Princess » · Tous les 2 ans\nAu printemps\, subst
+ rat drainant et riche.\n— Carnet Jardinerie
+CATEGORIES:Rempotage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:clusia-engrais@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🌿 Engrais Clusia
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+RRULE:FREQ=DAILY;INTERVAL=30
+DESCRIPTION:Clusia « Princess » · Une fois par mois (printemps-été)\
+ nEngrais plantes vertes dilué.\n— Carnet Jardinerie
+CATEGORIES:Engrais
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:clusia-surveillance@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🔎 Contrôler le Clusia
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+RRULE:FREQ=DAILY;INTERVAL=30
+DESCRIPTION:Clusia « Princess » · Contrôle mensuel\nTaches noires = e
+ xcès d'eau \; chute de feuilles = courant d'air froid.\n— Carnet Jardi
+ nerie
+CATEGORIES:Surveillance
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

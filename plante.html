@@ -37,7 +37,24 @@
     .plant-head { margin: 1.3rem 0 0.4rem; }
     .plant-head h1 { font-size: clamp(1.7rem, 5vw, 2.3rem); margin: 0; color: var(--sauge-fonce); }
     .plant-head .latin { font-style: italic; color: var(--texte-doux); font-size: 1rem; }
-    .plant-desc { color: var(--texte-doux); font-size: 1rem; margin: 0.8rem 0 1.4rem; }
+    .plant-desc { color: var(--texte-doux); font-size: 1rem; margin: 0.8rem 0 1.2rem; }
+
+    /* Appel à l'action : ajouter au calendrier */
+    .care-cta {
+      display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem;
+      background: var(--sauge-clair); border-radius: var(--radius-lg);
+      padding: 1.1rem 1.2rem; margin: 0 0 1.6rem;
+    }
+    .care-cta .cta-label { font-size: 0.9rem; color: var(--sauge-fonce); font-weight: 600; }
+    .gcal-btn {
+      text-decoration: none; font-weight: 700; font-size: 0.95rem;
+      background: var(--terre); color: #fff;
+      padding: 0.7rem 1.2rem; border-radius: var(--radius-pill);
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      box-shadow: 0 4px 12px rgba(192,116,74,0.3);
+    }
+    .gcal-btn:hover { background: var(--terre-fonce); }
+    .gcal-alt { font-size: 0.82rem; color: var(--texte-doux); text-decoration: underline; }
 
     .block-title { font-family: var(--font-titre); font-size: 1.15rem; color: var(--sauge-fonce); margin: 1.6rem 0 0.8rem; }
 
@@ -161,6 +178,10 @@
 
       function render() {
         var p = PLANT;
+        // Lien "Ajouter à Google Agenda" vers le .ics de CETTE plante
+        var icsUrl = new URL("assets/ics/" + p.id + ".ics", location.href).href;
+        var gcalUrl = "https://calendar.google.com/calendar/render?cid=" +
+                      encodeURIComponent(icsUrl.replace(/^https?:/i, "webcal:"));
         var specs = [
           ["☀️ Lumière", p.lumiere], ["💧 Arrosage", p.arrosage],
           ["💦 Humidité", p.humidite], ["🌡️ Température", p.temperature],
@@ -179,6 +200,11 @@
           '<div class="plant-head"><h1>' + C.escapeHTML(p.nomCommun) + '</h1>' +
             '<div class="latin">' + C.escapeHTML(p.nomLatin) + '</div></div>' +
           '<p class="plant-desc">' + C.escapeHTML(p.description) + '</p>' +
+          '<div class="care-cta">' +
+            '<span class="cta-label">📅 Recevez les rappels d\'entretien de cette plante</span>' +
+            '<a class="gcal-btn" href="' + gcalUrl + '" target="_blank" rel="noopener">Ajouter à Google Agenda</a>' +
+            '<a class="gcal-alt" href="' + icsUrl + '" download>ou télécharger le calendrier (.ics) — Apple, Outlook…</a>' +
+          '</div>' +
           '<div class="block-title">Entretien</div>' +
           '<div class="specs">' + specs + '</div>' +
           (symptomes ? '<div class="block-title">Symptômes à surveiller</div><ul style="color:var(--texte-doux);font-size:0.92rem;">' + symptomes + "</ul>" : "") +

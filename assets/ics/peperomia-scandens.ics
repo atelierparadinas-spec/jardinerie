@@ -1,0 +1,60 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Jardinerie//Entretien des plantes//FR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Jardinerie — Peperomia grimpant (Cupid)
+NAME:Jardinerie — Peperomia grimpant (Cupid)
+X-WR-TIMEZONE:Europe/Paris
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+COLOR:120,154,123
+BEGIN:VEVENT
+UID:peperomia-arrosage@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:💧 Arroser le Peperomia
+DTSTART;VALUE=DATE:20260531
+DTEND;VALUE=DATE:20260601
+RRULE:FREQ=DAILY;INTERVAL=9
+DESCRIPTION:Peperomia grimpant · Tous les 7 à 10 jours\nLaisser sécher
+  le 1er cm de terre. Craint l'excès d'eau.\n— Carnet Jardinerie
+CATEGORIES:Arrosage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:peperomia-rempotage@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🪴 Rempoter le Peperomia
+DTSTART;VALUE=DATE:20270821
+DTEND;VALUE=DATE:20270822
+RRULE:FREQ=DAILY;INTERVAL=456
+DESCRIPTION:Peperomia grimpant · Tous les 12 à 18 mois\nAu printemps\, 
+ substrat léger et drainant.\n— Carnet Jardinerie
+CATEGORIES:Rempotage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:peperomia-engrais@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🌿 Engrais Peperomia
+DTSTART;VALUE=DATE:20260606
+DTEND;VALUE=DATE:20260607
+RRULE:FREQ=DAILY;INTERVAL=15
+DESCRIPTION:Peperomia grimpant · Tous les 15 jours (printemps-été)\nEn
+ grais plantes vertes dilué. Stop en hiver.\n— Carnet Jardinerie
+CATEGORIES:Engrais
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:peperomia-surveillance@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🔎 Contrôler le Peperomia
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+RRULE:FREQ=DAILY;INTERVAL=30
+DESCRIPTION:Peperomia grimpant · Contrôle mensuel\nFeuilles molles = tr
+ op d'eau \; tiges allongées = manque de lumière.\n— Carnet Jardinerie
+CATEGORIES:Surveillance
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

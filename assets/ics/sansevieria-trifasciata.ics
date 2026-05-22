@@ -1,0 +1,61 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Jardinerie//Entretien des plantes//FR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Jardinerie — Langue de belle-mère
+NAME:Jardinerie — Langue de belle-mère
+X-WR-TIMEZONE:Europe/Paris
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+COLOR:120,154,123
+BEGIN:VEVENT
+UID:sansevieria-arrosage@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:💧 Arroser la Sansevieria
+DTSTART;VALUE=DATE:20260609
+DTEND;VALUE=DATE:20260610
+RRULE:FREQ=DAILY;INTERVAL=18
+DESCRIPTION:Langue de belle-mère · Tous les 14 à 21 jours\nLaisser sé
+ cher complètement. 1 fois/mois en hiver.\n— Carnet Jardinerie
+CATEGORIES:Arrosage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sansevieria-rempotage@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🪴 Rempoter la Sansevieria
+DTSTART;VALUE=DATE:20281119
+DTEND;VALUE=DATE:20281120
+RRULE:FREQ=DAILY;INTERVAL=912
+DESCRIPTION:Langue de belle-mère · Tous les 2 à 3 ans\nQuand les racin
+ es déforment le pot. Substrat cactées.\n— Carnet Jardinerie
+CATEGORIES:Rempotage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sansevieria-engrais@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🌿 Engrais Sansevieria
+DTSTART;VALUE=DATE:20260717
+DTEND;VALUE=DATE:20260718
+RRULE:FREQ=DAILY;INTERVAL=56
+DESCRIPTION:Langue de belle-mère · Toutes les 8 semaines (printemps-ét
+ é)\nEngrais cactées dilué. Aucun apport hors saison.\n— Carnet Jardi
+ nerie
+CATEGORIES:Engrais
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sansevieria-surveillance@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🔎 Contrôler la Sansevieria
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+RRULE:FREQ=DAILY;INTERVAL=30
+DESCRIPTION:Langue de belle-mère · Contrôle mensuel\nBase molle = pour
+ riture \; feuilles couchées = manque de lumière.\n— Carnet Jardinerie
+CATEGORIES:Surveillance
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

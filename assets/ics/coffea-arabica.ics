@@ -1,0 +1,60 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Jardinerie//Entretien des plantes//FR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Jardinerie — Caféier
+NAME:Jardinerie — Caféier
+X-WR-TIMEZONE:Europe/Paris
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+COLOR:120,154,123
+BEGIN:VEVENT
+UID:coffea-arrosage@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:💧 Arroser le Caféier
+DTSTART;VALUE=DATE:20260528
+DTEND;VALUE=DATE:20260529
+RRULE:FREQ=DAILY;INTERVAL=6
+DESCRIPTION:Caféier · Tous les 5 à 7 jours\nGarder le substrat légèr
+ ement humide. Sensible au dessèchement.\n— Carnet Jardinerie
+CATEGORIES:Arrosage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:coffea-rempotage@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🪴 Rempoter le Caféier
+DTSTART;VALUE=DATE:20270821
+DTEND;VALUE=DATE:20270822
+RRULE:FREQ=DAILY;INTERVAL=456
+DESCRIPTION:Caféier · Tous les 12 à 18 mois\nAu printemps\, substrat r
+ iche\, légèrement acide et drainant.\n— Carnet Jardinerie
+CATEGORIES:Rempotage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:coffea-engrais@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🌿 Engrais Caféier
+DTSTART;VALUE=DATE:20260609
+DTEND;VALUE=DATE:20260610
+RRULE:FREQ=DAILY;INTERVAL=18
+DESCRIPTION:Caféier · Tous les 15 à 21 jours (printemps-été)\nEngrai
+ s plantes vertes dilué.\n— Carnet Jardinerie
+CATEGORIES:Engrais
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:coffea-surveillance@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🔎 Contrôler le Caféier
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+RRULE:FREQ=DAILY;INTERVAL=30
+DESCRIPTION:Caféier · Contrôle mensuel\nSurveiller l'hygrométrie et l
+ es acariens (air sec). Brumiser au besoin.\n— Carnet Jardinerie
+CATEGORIES:Surveillance
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

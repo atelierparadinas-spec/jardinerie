@@ -65,55 +65,72 @@ def main():
     anchor = datetime.strptime(args.start, "%Y-%m-%d").date()
     with open(args.data, encoding="utf-8") as f:
         tasks = json.load(f)["taches"]
+    # noms des plantes (pour nommer les calendriers par plante)
+    plants_path = os.path.join(ROOT, "data", "plants.json")
+    names = {}
+    if os.path.exists(plants_path):
+        for p in json.load(open(plants_path, encoding="utf-8"))["plantes"]:
+            names[p["id"]] = p["nomCommun"]
 
     stamp = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
-    lines = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//Jardinerie//Entretien des plantes//FR",
-        "CALSCALE:GREGORIAN",
-        "METHOD:PUBLISH",
-        "X-WR-CALNAME:Jardinerie — Entretien des plantes",
-        "NAME:Jardinerie — Entretien des plantes",
-        "X-WR-TIMEZONE:Europe/Paris",
-        "REFRESH-INTERVAL;VALUE=DURATION:PT12H",
-        "X-PUBLISHED-TTL:PT12H",
-        "COLOR:120,154,123",
-    ]
 
-    for t in tasks:
-        interval = max(1, int(t["intervalleJours"]))
-        first = anchor + timedelta(days=interval)         # 1re échéance à venir
-        end = first + timedelta(days=1)                   # all-day = +1 jour (exclusif)
-        icon = ICONS.get(t["type"], "")
-        summary = (icon + " " + t["titre"]).strip()
-        desc = t.get("plante", "") + " · " + t.get("frequence", "")
-        if t.get("notes"):
-            desc += "\n" + t["notes"]
-        desc += "\n— Carnet Jardinerie"
-
-        ev = [
-            "BEGIN:VEVENT",
-            "UID:" + t["id"] + "@jardinerie",
-            "DTSTAMP:" + stamp,
-            "SUMMARY:" + esc(summary),
-            "DTSTART;VALUE=DATE:" + first.strftime("%Y%m%d"),
-            "DTEND;VALUE=DATE:" + end.strftime("%Y%m%d"),
-            "RRULE:FREQ=DAILY;INTERVAL=" + str(interval),
-            "DESCRIPTION:" + esc(desc),
-            "CATEGORIES:" + LABELS.get(t["type"], "Entretien"),
-            "TRANSP:TRANSPARENT",
-            "END:VEVENT",
+    def build_calendar(subset, calname):
+        lines = [
+            "BEGIN:VCALENDAR",
+            "VERSION:2.0",
+            "PRODID:-//Jardinerie//Entretien des plantes//FR",
+            "CALSCALE:GREGORIAN",
+            "METHOD:PUBLISH",
+            "X-WR-CALNAME:" + calname,
+            "NAME:" + calname,
+            "X-WR-TIMEZONE:Europe/Paris",
+            "REFRESH-INTERVAL;VALUE=DURATION:PT12H",
+            "X-PUBLISHED-TTL:PT12H",
+            "COLOR:120,154,123",
         ]
-        lines.extend(ev)
+        for t in subset:
+            interval = max(1, int(t["intervalleJours"]))
+            first = anchor + timedelta(days=interval)     # 1re échéance à venir
+            end = first + timedelta(days=1)               # all-day = +1 jour (exclusif)
+            summary = (ICONS.get(t["type"], "") + " " + t["titre"]).strip()
+            desc = t.get("plante", "") + " · " + t.get("frequence", "")
+            if t.get("notes"):
+                desc += "\n" + t["notes"]
+            desc += "\n— Carnet Jardinerie"
+            lines += [
+                "BEGIN:VEVENT",
+                "UID:" + t["id"] + "@jardinerie",
+                "DTSTAMP:" + stamp,
+                "SUMMARY:" + esc(summary),
+                "DTSTART;VALUE=DATE:" + first.strftime("%Y%m%d"),
+                "DTEND;VALUE=DATE:" + end.strftime("%Y%m%d"),
+                "RRULE:FREQ=DAILY;INTERVAL=" + str(interval),
+                "DESCRIPTION:" + esc(desc),
+                "CATEGORIES:" + LABELS.get(t["type"], "Entretien"),
+                "TRANSP:TRANSPARENT",
+                "END:VEVENT",
+            ]
+        lines.append("END:VCALENDAR")
+        return "\r\n".join(fold(l) for l in lines) + "\r\n"
 
-    lines.append("END:VCALENDAR")
-
-    content = "\r\n".join(fold(l) for l in lines) + "\r\n"
+    # 1) Calendrier complet (toutes les plantes)
     with open(args.out, "w", encoding="utf-8", newline="") as f:
-        f.write(content)
+        f.write(build_calendar(tasks, "Jardinerie — Entretien des plantes"))
+    print("✓ %d événements -> %s" % (len(tasks), args.out))
 
-    print("✓ %d événements récurrents écrits dans %s" % (len(tasks), args.out))
+    # 2) Un calendrier par plante -> assets/ics/<id>.ics
+    per_dir = os.path.join(ROOT, "assets", "ics")
+    os.makedirs(per_dir, exist_ok=True)
+    by_plant = {}
+    for t in tasks:
+        by_plant.setdefault(t["plantId"], []).append(t)
+    for pid, subset in by_plant.items():
+        calname = "Jardinerie — " + names.get(pid, subset[0].get("plante", pid))
+        path = os.path.join(per_dir, pid + ".ics")
+        with open(path, "w", encoding="utf-8", newline="") as f:
+            f.write(build_calendar(subset, calname))
+        print("  ✓ %-26s %d soins -> assets/ics/%s.ics" % (names.get(pid, pid), len(subset), pid))
+
     print("  Ancrage : %s (1re occurrence = ancrage + intervalle)" % anchor.isoformat())
 
 

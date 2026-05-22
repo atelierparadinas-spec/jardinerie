@@ -1,0 +1,60 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Jardinerie//Entretien des plantes//FR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Jardinerie — Clivia
+NAME:Jardinerie — Clivia
+X-WR-TIMEZONE:Europe/Paris
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+COLOR:120,154,123
+BEGIN:VEVENT
+UID:clivia-arrosage@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:💧 Arroser le Clivia
+DTSTART;VALUE=DATE:20260602
+DTEND;VALUE=DATE:20260603
+RRULE:FREQ=DAILY;INTERVAL=11
+DESCRIPTION:Clivia · Tous les 7 à 14 jours (croissance)\nRéduire forte
+ ment en hiver pour le repos / la floraison.\n— Carnet Jardinerie
+CATEGORIES:Arrosage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:clivia-rempotage@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🪴 Rempoter le Clivia
+DTSTART;VALUE=DATE:20291120
+DTEND;VALUE=DATE:20291121
+RRULE:FREQ=DAILY;INTERVAL=1278
+DESCRIPTION:Clivia · Tous les 3 à 4 ans\nFleurit mieux à l'étroit. Re
+ mpoter après floraison.\n— Carnet Jardinerie
+CATEGORIES:Rempotage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:clivia-engrais@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🌿 Engrais Clivia
+DTSTART;VALUE=DATE:20260605
+DTEND;VALUE=DATE:20260606
+RRULE:FREQ=DAILY;INTERVAL=14
+DESCRIPTION:Clivia · Toutes les 2 semaines (printemps-été)\nEngrais pl
+ antes fleuries. Stop pendant le repos hivernal.\n— Carnet Jardinerie
+CATEGORIES:Engrais
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:clivia-surveillance@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🔎 Contrôler le Clivia
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+RRULE:FREQ=DAILY;INTERVAL=30
+DESCRIPTION:Clivia · Contrôle mensuel\nPenser au repos hivernal au frai
+ s (10–12 °C) pour refleurir.\n— Carnet Jardinerie
+CATEGORIES:Surveillance
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

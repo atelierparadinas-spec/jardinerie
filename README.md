@@ -185,6 +185,15 @@ Cela crée `assets/qr/<id-plante>.png` pour les 6 plantes. Recharge le site :
 les QR apparaissent sur chaque carte. Si `assets/qr/` est vide, le bloc QR est
 simplement masqué (aucune image cassée).
 
+## Bouton « Ajouter à Google Agenda » sur chaque fiche
+
+Chaque page `plante.html` affiche un bouton **« Ajouter à Google Agenda »** qui
+abonne le visiteur aux soins **de cette plante seulement** (fichier
+`assets/ics/<id>.ics`). Idéal quand le QR est sur un pot : le client n'ajoute
+que SA plante. Un lien de secours **« télécharger le .ics »** couvre Apple
+(iPhone), Outlook, etc. Régénérer ces fichiers : `python3 tools/generate-ics.py`
+(crée `jardinerie.ics` + un `.ics` par plante dans `assets/ics/`).
+
 ## Calendrier dans Notion Calendar / Google / Apple (abonnement .ics)
 
 Le fichier **`jardinerie.ics`** est un flux calendrier standard : un événement

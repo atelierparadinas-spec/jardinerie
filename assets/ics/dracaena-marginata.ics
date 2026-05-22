@@ -1,0 +1,60 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Jardinerie//Entretien des plantes//FR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Jardinerie — Dragonnier de Madagascar
+NAME:Jardinerie — Dragonnier de Madagascar
+X-WR-TIMEZONE:Europe/Paris
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+COLOR:120,154,123
+BEGIN:VEVENT
+UID:dracaena-arrosage@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:💧 Arroser le Dragonnier
+DTSTART;VALUE=DATE:20260603
+DTEND;VALUE=DATE:20260604
+RRULE:FREQ=DAILY;INTERVAL=12
+DESCRIPTION:Dragonnier · Tous les 10 à 14 jours\nLaisser sécher la moi
+ tié du pot. Eau non calcaire de préférence.\n— Carnet Jardinerie
+CATEGORIES:Arrosage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:dracaena-rempotage@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🪴 Rempoter le Dragonnier
+DTSTART;VALUE=DATE:20281119
+DTEND;VALUE=DATE:20281120
+RRULE:FREQ=DAILY;INTERVAL=912
+DESCRIPTION:Dragonnier · Tous les 2 à 3 ans\nAu printemps. Pot lourd po
+ ur la stabilité.\n— Carnet Jardinerie
+CATEGORIES:Rempotage
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:dracaena-engrais@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🌿 Engrais Dragonnier
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+RRULE:FREQ=DAILY;INTERVAL=30
+DESCRIPTION:Dragonnier · Une fois par mois (printemps-été)\nEngrais pl
+ antes vertes dilué.\n— Carnet Jardinerie
+CATEGORIES:Engrais
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:dracaena-surveillance@jardinerie
+DTSTAMP:20260522T015051Z
+SUMMARY:🔎 Contrôler le Dragonnier
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+RRULE:FREQ=DAILY;INTERVAL=30
+DESCRIPTION:Dragonnier · Contrôle mensuel\nPointes brunes = eau calcair
+ e/fluorée ou air sec.\n— Carnet Jardinerie
+CATEGORIES:Surveillance
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR
